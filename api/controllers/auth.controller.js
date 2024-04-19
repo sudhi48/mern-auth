@@ -1,7 +1,7 @@
 import User from "../models/user.model.js"
 
 
-export const signup =async (req,res) => {
+export const signup =async (req,res,next) => {
     try{
         const {username, email,password} = req.body
         const newUser= new User({username,email,password})
@@ -10,7 +10,6 @@ export const signup =async (req,res) => {
         res.status(201).json({message: 'User created successfully'})
     }    
     catch(error){
-        res.status(501).json({error: 'Internal Server Error'})
-        console.log(error)
+       next(error)
     }
 }

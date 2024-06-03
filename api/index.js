@@ -1,9 +1,17 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import path from 'path';
 import './db.js';
 import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
+
+const  __dirname=path.resolve();
 const app=express()
+
+app.use(express.static(path.join(__dirname,'/client/dist')))
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+});
 
 app.listen(3000, ()=>{
     console.log('Server listening to port 3000')
